@@ -12,16 +12,24 @@
 </head>
 <body>
   <div class="ecran">
-    <iframe id="visionneusePdf" class="visionneuse" title="Aperçu du bulletin"></iframe>
+    <header class="entete">
+      <img src="assets/logo.png" alt="Logo" class="logo">
+      <h1>Bulletin — Aperçu</h1>
+    </header>
+
+    <main class="contenu" style="display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; text-align:center;">
+      <p class="texte-discret" id="textStatut" style="margin-bottom:20px;">Génération du PDF en cours…</p>
+      <button class="secondaire" id="btnVoirPdf" disabled>📄 Voir le PDF</button>
+    </main>
 
     <footer class="pied">
       <button class="secondaire" id="btnCorriger">◀ Corriger</button>
-      <button class="principal" id="btnEnvoyerMail">Envoyer par mail</button>
+      <button class="principal" id="btnEnvoyerMail" disabled>Envoyer par mail</button>
     </footer>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/[email protected]/build/pdfmake.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/[email protected]/build/vfs_fonts.js"></script>
   <script src="js/date-utils.js"></script>
   <script src="js/heures-utils.js"></script>
   <script src="js/preferences.js"></script>
