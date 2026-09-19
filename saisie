@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bulletin — Saisie</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="theme-color" content="#1F6FC9">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="ecran">
+    <header class="entete">
+      <img src="assets/logo.png" alt="Logo" class="logo">
+      <h1 id="textJourTitre">Jour</h1>
+    </header>
+
+    <main class="contenu">
+      <div id="containerLignes"></div>
+      <button class="secondaire pleine-largeur" id="btnAjouterLigne">+ Ajouter une ligne</button>
+    </main>
+
+    <footer class="pied">
+      <button class="secondaire" id="btnPrecedent">◀ Précédent</button>
+      <button class="principal" id="btnSuivant">Suivant ▶</button>
+    </footer>
+  </div>
+
+  <script src="js/date-utils.js"></script>
+  <script src="js/heures-utils.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/saisie.js"></script>
+</body>
+</html>
