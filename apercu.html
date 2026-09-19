@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bulletin — Aperçu</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="theme-color" content="#1F6FC9">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="ecran">
+    <iframe id="visionneusePdf" class="visionneuse" title="Aperçu du bulletin"></iframe>
+
+    <footer class="pied">
+      <button class="secondaire" id="btnCorriger">◀ Corriger</button>
+      <button class="principal" id="btnEnvoyerMail">Envoyer par mail</button>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.js"></script>
+  <script src="js/date-utils.js"></script>
+  <script src="js/heures-utils.js"></script>
+  <script src="js/preferences.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/pdf-generator.js"></script>
+  <script src="js/apercu.js"></script>
+</body>
+</html>
