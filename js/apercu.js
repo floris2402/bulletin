@@ -7,9 +7,15 @@ if ('serviceWorker' in navigator) {
 const params = new URLSearchParams(window.location.search);
 const semaineId = Number(params.get('semaineId'));
 
+const textStatut = document.getElementById('textStatut');
+const btnVoirPdf = document.getElementById('btnVoirPdf');
+const btnCorriger = document.getElementById('btnCorriger');
+const btnEnvoyerMail = document.getElementById('btnEnvoyerMail');
+
 let semaine = null;
 let dates5Jours = [];
 let pdfBlob = null;
+let pdfUrl = null;
 
 (async function init() {
   if (!semaineId) { window.location.href = 'index.html'; return; }
@@ -20,18 +26,28 @@ let pdfBlob = null;
   dates5Jours = DateUtils.genererSemaineLunVen(DateUtils.depuisISO(semaine.dateDebut));
   const lignes = await BulletinDB.getToutesLignes(semaineId);
 
-  pdfBlob = await PdfGenerator.genererPdfBlob(semaine, dates5Jours, lignes);
-  const url = URL.createObjectURL(pdfBlob);
-  document.getElementById('visionneusePdf').src = url;
+  try {
+    pdfBlob = await PdfGenerator.genererPdfBlob(semaine, dates5Jours, lignes);
+    pdfUrl = URL.createObjectURL(pdfBlob);
+    textStatut.textContent = 'Ton bulletin est prêt.';
+    btnVoirPdf.disabled = false;
+    btnEnvoyerMail.disabled = false;
+  } catch (erreur) {
+    textStatut.textContent = 'Erreur lors de la génération du PDF : ' + erreur.message
+      + '. Vérifie ta connexion internet (la première génération a besoin du réseau) puis recharge cette page.';
+  }
 })();
 
-document.getElementById('btnCorriger').addEventListener('click', () => {
+btnVoirPdf.addEventListener('click', () => {
+  if (pdfUrl) window.open(pdfUrl, '_blank');
+});
+
+btnCorriger.addEventListener('click', () => {
   window.location.href = `saisie.html?semaineId=${semaineId}`;
 });
 
-document.getElementById('btnEnvoyerMail').addEventListener('click', async () => {
-  const btn = document.getElementById('btnEnvoyerMail');
-  btn.disabled = true;
+btnEnvoyerMail.addEventListener('click', async () => {
+  btnEnvoyerMail.disabled = true;
 
   const nomFichier = `Bulletin_${semaine.dateDebut}.pdf`;
   const objet = `Heures de ${semaine.nom || ''} ${semaine.prenom || ''}`.trim();
@@ -47,7 +63,7 @@ document.getElementById('btnEnvoyerMail').addEventListener('click', async () => 
       window.location.href = 'index.html';
       return;
     } catch (erreurPartage) {
-      btn.disabled = false;
+      btnEnvoyerMail.disabled = false;
       return;
     }
   }
@@ -55,9 +71,8 @@ document.getElementById('btnEnvoyerMail').addEventListener('click', async () => 
   const mailPrincipal = Preferences.getMailPrincipal();
   const mailCopie = Preferences.getMailCopie();
 
-  const url = URL.createObjectURL(pdfBlob);
   const lien = document.createElement('a');
-  lien.href = url;
+  lien.href = pdfUrl;
   lien.download = nomFichier;
   lien.click();
 
