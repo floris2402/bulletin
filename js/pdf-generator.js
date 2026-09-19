@@ -166,8 +166,18 @@ function construireDocDefinition(semaine, dates5Jours, lignes, logoDataUrl) {
 async function genererPdfBlob(semaine, dates5Jours, lignes) {
   const logoDataUrl = await chargerImageEnBase64('assets/logo.png');
   const docDefinition = construireDocDefinition(semaine, dates5Jours, lignes, logoDataUrl);
-  return new Promise((resolve) => {
-    pdfMake.createPdf(docDefinition).getBlob((blob) => resolve(blob));
+  return new Promise((resolve, reject) => {
+    try {
+      pdfMake.createPdf(docDefinition).getBlob((blob) => {
+        if (!blob || blob.size < 500) {
+          reject(new Error('Le fichier PDF généré est vide ou invalide.'));
+          return;
+        }
+        resolve(new Blob([blob], { type: 'application/pdf' }));
+      });
+    } catch (erreur) {
+      reject(erreur);
+    }
   });
 }
 
