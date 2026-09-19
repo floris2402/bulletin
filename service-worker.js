@@ -14,6 +14,7 @@ const FICHIERS_A_METTRE_EN_CACHE = [
   './css/style.css',
   './js/db.js',
   './js/date-utils.js',
+  './js/heures-utils.js',
   './js/preferences.js',
   './js/pdf-generator.js',
   './js/nouvelle-semaine.js',
@@ -23,7 +24,6 @@ const FICHIERS_A_METTRE_EN_CACHE = [
   './assets/logo.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
-  // Librairie PDF chargée depuis un CDN : mise en cache aussi pour l'usage hors-ligne
   'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.js'
 ];
@@ -48,7 +48,6 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((reponseEnCache) => {
       return reponseEnCache || fetch(event.request).then((reponseReseau) => {
-        // Met aussi en cache les nouvelles ressources récupérées avec succès (même origine uniquement)
         if (event.request.url.startsWith(self.location.origin)) {
           const copie = reponseReseau.clone();
           caches.open(VERSION).then((cache) => cache.put(event.request, copie));
