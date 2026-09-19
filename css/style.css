@@ -1,0 +1,261 @@
+/* ===== Bulletin — design tokens ===== */
+:root {
+  --bleu: #1F6FC9;
+  --bleu-fonce: #15528F;
+  --bleu-clair: #E8F1FB;
+  --encre: #1A2333;
+  --gris-texte: #5B6472;
+  --fond: #F5F7FA;
+  --carte: #FFFFFF;
+  --bordure: #D8DEE8;
+  --rouge: #C62828;
+  --rayon: 10px;
+  --ombre: 0 1px 2px rgba(26, 35, 51, 0.06), 0 2px 8px rgba(26, 35, 51, 0.06);
+  --touche-min: 48px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--fond);
+  color: var(--encre);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ecran {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.entete {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--carte);
+  border-bottom: 1px solid var(--bordure);
+}
+
+.entete img.logo {
+  height: 36px;
+  width: auto;
+}
+
+.entete h1 {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--encre);
+}
+
+.entete .retour {
+  border: none;
+  background: none;
+  font-size: 22px;
+  color: var(--bleu);
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+}
+
+.contenu {
+  flex: 1;
+  padding: 20px;
+  max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.pied {
+  display: flex;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--carte);
+  border-top: 1px solid var(--bordure);
+}
+
+/* --- Champs --- */
+.champ {
+  margin-bottom: 16px;
+}
+
+.champ label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gris-texte);
+  margin-bottom: 6px;
+}
+
+.champ input, .champ textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 16px;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  background: var(--carte);
+  color: var(--encre);
+  font-family: inherit;
+}
+
+.champ input:focus, .champ textarea:focus {
+  outline: 2px solid var(--bleu);
+  outline-offset: 1px;
+  border-color: var(--bleu);
+}
+
+.ligne-champs {
+  display: flex;
+  gap: 12px;
+}
+.ligne-champs .champ { flex: 1; }
+
+/* --- Boutons --- */
+button.principal, button.secondaire, button.texte {
+  min-height: var(--touche-min);
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: var(--rayon);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+button.principal {
+  flex: 1;
+  background: var(--bleu);
+  color: #fff;
+}
+button.principal:active { background: var(--bleu-fonce); }
+button.principal:disabled { background: #A9C3E3; cursor: not-allowed; }
+
+button.secondaire {
+  flex: 1;
+  background: var(--carte);
+  color: var(--bleu);
+  border: 1.5px solid var(--bleu);
+}
+button.secondaire:active { background: var(--bleu-clair); }
+
+button.texte {
+  background: none;
+  color: var(--bleu);
+  padding: 8px 4px;
+}
+
+button.pleine-largeur { width: 100%; }
+
+/* --- Cartes (une ligne de saisie) --- */
+.carte-ligne {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.carte-ligne .supprimer {
+  display: block;
+  margin-left: auto;
+  margin-top: 4px;
+  background: none;
+  border: none;
+  color: var(--rouge);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px;
+}
+
+/* --- Divers --- */
+.sous-titre {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.texte-discret {
+  color: var(--gris-texte);
+  font-size: 14px;
+}
+
+.separateur {
+  height: 1px;
+  background: var(--bordure);
+  border: none;
+  margin: 20px 0;
+}
+
+.liste-semaines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.liste-semaines li {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.liste-semaines li:active {
+  background: var(--bleu-clair);
+}
+
+.badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--bleu-clair);
+  color: var(--bleu-fonce);
+}
+
+/* Overlay (dialogue Mail) */
+.overlay-fond {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 35, 51, 0.4);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+}
+
+.overlay-panneau {
+  background: var(--carte);
+  border-radius: var(--rayon) var(--rayon) 0 0;
+  padding: 24px 20px;
+  width: 100%;
+  max-width: 640px;
+}
+
+.overlay-panneau h2 {
+  margin: 0 0 16px;
+  font-size: 18px;
+}
+
+.overlay-boutons {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+@media (min-width: 700px) {
+  .overlay-fond { align-items: center; }
+  .overlay-panneau { border-radius: var(--rayon); }
+}
