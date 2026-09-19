@@ -2,7 +2,7 @@
 // Met en cache les fichiers de l'app pour qu'elle fonctionne hors-ligne une fois installée.
 // À chaque changement de version ci-dessous, les anciens caches sont purgés automatiquement.
 
-const VERSION = 'bulletin-v3';
+const VERSION = 'bulletin-v4';
 
 const FICHIERS_A_METTRE_EN_CACHE = [
   './',
@@ -21,11 +21,11 @@ const FICHIERS_A_METTRE_EN_CACHE = [
   './js/saisie.js',
   './js/apercu.js',
   './js/historique.js',
+  './js/vendor/pdfmake.min.js',
+  './js/vendor/vfs_fonts.js',
   './assets/logo.png',
   './icons/icon-192.png',
-  './icons/icon-512.png',
-  'https://cdn.jsdelivr.net/npm/pdfmake@latest/build/pdfmake.min.js',
-  'https://cdn.jsdelivr.net/npm/pdfmake@latest/build/vfs_fonts.min.js'
+  './icons/icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
