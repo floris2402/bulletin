@@ -255,6 +255,13 @@ button.pleine-largeur { width: 100%; }
   margin-top: 8px;
 }
 
+.visionneuse {
+  flex: 1;
+  width: 100%;
+  border: none;
+  background: #fff;
+}
+
 @media (min-width: 700px) {
   .overlay-fond { align-items: center; }
   .overlay-panneau { border-radius: var(--rayon); }
