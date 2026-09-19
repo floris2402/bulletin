@@ -2,7 +2,7 @@
 // Met en cache les fichiers de l'app pour qu'elle fonctionne hors-ligne une fois installée.
 // À chaque changement de version ci-dessous, les anciens caches sont purgés automatiquement.
 
-const VERSION = 'bulletin-v1';
+const VERSION = 'bulletin-v2';
 
 const FICHIERS_A_METTRE_EN_CACHE = [
   './',
@@ -24,8 +24,9 @@ const FICHIERS_A_METTRE_EN_CACHE = [
   './assets/logo.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
-  'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.js'
+  // Librairie PDF chargée depuis un CDN : mise en cache aussi pour l'usage hors-ligne
+  'https://cdn.jsdelivr.net/npm/[email protected]/build/pdfmake.min.js',
+  'https://cdn.jsdelivr.net/npm/[email protected]/build/vfs_fonts.js'
 ];
 
 self.addEventListener('install', (event) => {
