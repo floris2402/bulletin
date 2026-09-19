@@ -1,0 +1,60 @@
+// Bulletin — service worker
+// Met en cache les fichiers de l'app pour qu'elle fonctionne hors-ligne une fois installée.
+// À chaque changement de version ci-dessous, les anciens caches sont purgés automatiquement.
+
+const VERSION = 'bulletin-v1';
+
+const FICHIERS_A_METTRE_EN_CACHE = [
+  './',
+  './index.html',
+  './saisie.html',
+  './apercu.html',
+  './historique.html',
+  './manifest.json',
+  './css/style.css',
+  './js/db.js',
+  './js/date-utils.js',
+  './js/preferences.js',
+  './js/pdf-generator.js',
+  './js/nouvelle-semaine.js',
+  './js/saisie.js',
+  './js/apercu.js',
+  './js/historique.js',
+  './assets/logo.png',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  // Librairie PDF chargée depuis un CDN : mise en cache aussi pour l'usage hors-ligne
+  'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.js'
+];
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(VERSION).then((cache) => cache.addAll(FICHIERS_A_METTRE_EN_CACHE))
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((noms) =>
+      Promise.all(noms.filter((nom) => nom !== VERSION).map((nom) => caches.delete(nom)))
+    )
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((reponseEnCache) => {
+      return reponseEnCache || fetch(event.request).then((reponseReseau) => {
+        // Met aussi en cache les nouvelles ressources récupérées avec succès (même origine uniquement)
+        if (event.request.url.startsWith(self.location.origin)) {
+          const copie = reponseReseau.clone();
+          caches.open(VERSION).then((cache) => cache.put(event.request, copie));
+        }
+        return reponseReseau;
+      });
+    }).catch(() => caches.match('./index.html'))
+  );
+});
