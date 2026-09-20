@@ -27,7 +27,13 @@ let pdfUrl = null;
   const lignes = await BulletinDB.getToutesLignes(semaineId);
 
   try {
-    pdfBlob = await PdfGenerator.genererPdfBlob(semaine, dates5Jours, lignes);
+    const delaiSecurite = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('La génération prend trop de temps (15s dépassées).')), 15000)
+    );
+    pdfBlob = await Promise.race([
+      PdfGenerator.genererPdfBlob(semaine, dates5Jours, lignes),
+      delaiSecurite
+    ]);
     pdfUrl = URL.createObjectURL(pdfBlob);
     textStatut.textContent = 'Ton bulletin est prêt.';
     btnVoirPdf.disabled = false;
