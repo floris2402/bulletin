@@ -2,7 +2,7 @@
 // Met en cache les fichiers de l'app pour qu'elle fonctionne hors-ligne une fois installée.
 // À chaque changement de version ci-dessous, les anciens caches sont purgés automatiquement.
 
-const VERSION = 'bulletin-v4';
+const VERSION = 'bulletin-v5';
 
 const FICHIERS_A_METTRE_EN_CACHE = [
   './',
