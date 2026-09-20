@@ -77,23 +77,3 @@ btnCommencer.addEventListener('click', async () => {
 document.getElementById('btnHistorique').addEventListener('click', () => {
   window.location.href = 'historique.html';
 });
-
-// --- Overlay Mail ---
-const overlayMail = document.getElementById('overlayMail');
-const editMailPrincipal = document.getElementById('editMailPrincipal');
-const editMailCopie = document.getElementById('editMailCopie');
-
-document.getElementById('btnMail').addEventListener('click', () => {
-  editMailPrincipal.value = Preferences.getMailPrincipal();
-  editMailCopie.value = Preferences.getMailCopie();
-  overlayMail.style.display = 'flex';
-});
-
-document.getElementById('btnAnnulerMail').addEventListener('click', () => {
-  overlayMail.style.display = 'none';
-});
-
-document.getElementById('btnEnregistrerMail').addEventListener('click', () => {
-  Preferences.sauvegarderMails(editMailPrincipal.value.trim(), editMailCopie.value.trim());
-  overlayMail.style.display = 'none';
-});
