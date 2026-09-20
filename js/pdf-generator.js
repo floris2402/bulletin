@@ -14,12 +14,17 @@ async function chargerImageEnBase64(url) {
       lecteur.readAsDataURL(blob);
     });
   } catch (e) {
-    return null; // pas de logo trouvé : le PDF se génère quand même, juste sans logo
+    return null;
   }
 }
 
 function formatNombre(valeur) {
   return valeur ? String(valeur) : '';
+}
+
+function formatNombreTotal(valeur) {
+  const arrondi = Math.round((valeur || 0) * 100) / 100;
+  return String(arrondi);
 }
 
 function construireDocDefinition(semaine, dates5Jours, lignes, logoDataUrl) {
@@ -42,7 +47,7 @@ function construireDocDefinition(semaine, dates5Jours, lignes, logoDataUrl) {
     ]
   ];
 
-  let totalDeplacements = 0, totalSurDevis = 0, totalRegie = 0, totalDivers = 0;
+  let totalDeplacements = 0, totalSurDevis = 0, totalRegie = 0, totalDivers = 0, totalFrais = 0, totalKm = 0;
 
   for (const dateJour of dates5Jours) {
     const lignesDuJour = lignes.filter((l) => l.date === dateJour).sort((a, b) => a.ordre - b.ordre);
@@ -80,6 +85,8 @@ function construireDocDefinition(semaine, dates5Jours, lignes, logoDataUrl) {
       totalSurDevis += ligne.hSurDevis;
       totalRegie += ligne.hRegie;
       totalDivers += ligne.hDivers;
+      totalFrais += ligne.frais;
+      totalKm += ligne.km;
     }
   }
 
@@ -87,8 +94,8 @@ function construireDocDefinition(semaine, dates5Jours, lignes, logoDataUrl) {
   corpsTableau.push([
     { text: '', style: 'celluleTotal' },
     { text: 'Total', style: 'celluleTotal' },
-    { text: '', style: 'celluleTotal' },
-    { text: '', style: 'celluleTotal' },
+    { text: formatNombreTotal(totalFrais), style: 'celluleTotal', alignment: 'right' },
+    { text: formatNombreTotal(totalKm), style: 'celluleTotal', alignment: 'right' },
     { text: HeuresUtils.formatHeuresMinutes(totalDeplacements), style: 'celluleTotal', alignment: 'center' },
     { text: HeuresUtils.formatHeuresMinutes(totalSurDevis), style: 'celluleTotal', alignment: 'center' },
     { text: HeuresUtils.formatHeuresMinutes(totalRegie), style: 'celluleTotal', alignment: 'center' },
@@ -133,7 +140,7 @@ function construireDocDefinition(semaine, dates5Jours, lignes, logoDataUrl) {
   content.push({
     table: {
       headerRows: 2,
-            widths: ['8.6%', '13.8%', '8.6%', '10.3%', '10.3%', '10.3%', '10.3%', '10.3%', '17.5%'],
+      widths: ['8.3%', '13.4%', '8.3%', '10%', '10%', '10%', '10%', '10%', '17%'],
       body: corpsTableau
     },
     layout: {
