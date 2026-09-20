@@ -15,7 +15,6 @@
     <header class="entete">
       <img src="assets/logo.png" alt="Logo" class="logo">
       <h1>Bulletin Individuel de Production</h1>
-      <base href="/bulletin/">
     </header>
 
     <main class="contenu">
@@ -29,8 +28,6 @@
         <input type="text" id="editPrenom" autocomplete="given-name">
       </div>
 
-      <button class="texte" id="btnMail">✉️ Adresses mail</button>
-
       <hr class="separateur">
 
       <button class="secondaire pleine-largeur" id="btnChoisirLundi">Choisir le lundi de la semaine</button>
@@ -42,25 +39,6 @@
     <footer class="pied">
       <button class="principal pleine-largeur" id="btnCommencer" disabled>Commencer la saisie</button>
     </footer>
-  </div>
-
-  <!-- Overlay Mail -->
-  <div class="overlay-fond" id="overlayMail" style="display:none;">
-    <div class="overlay-panneau">
-      <h2>Adresses mail</h2>
-      <div class="champ">
-        <label for="editMailPrincipal">Mail principal</label>
-        <input type="email" id="editMailPrincipal">
-      </div>
-      <div class="champ">
-        <label for="editMailCopie">Mail en copie (optionnel)</label>
-        <input type="email" id="editMailCopie">
-      </div>
-      <div class="overlay-boutons">
-        <button class="secondaire" id="btnAnnulerMail">Annuler</button>
-        <button class="principal" id="btnEnregistrerMail">Enregistrer</button>
-      </div>
-    </div>
   </div>
 
   <!-- Sélecteur de date natif, caché, déclenché par le bouton "Choisir le lundi" -->
