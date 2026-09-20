@@ -133,7 +133,7 @@ function construireDocDefinition(semaine, dates5Jours, lignes, logoDataUrl) {
   content.push({
     table: {
       headerRows: 2,
-      widths: [69, 111, 69, 83, 83, 83, 83, 83, 152],
+            widths: ['8.6%', '13.8%', '8.6%', '10.3%', '10.3%', '10.3%', '10.3%', '10.3%', '17.5%'],
       body: corpsTableau
     },
     layout: {
