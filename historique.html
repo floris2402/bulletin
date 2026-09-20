@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bulletin — Historique</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="theme-color" content="#1F6FC9">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="ecran">
+    <header class="entete">
+      <button class="retour" id="btnRetour" aria-label="Retour">←</button>
+      <h1>Historique des semaines</h1>
+    </header>
+
+    <main class="contenu">
+      <p class="texte-discret" id="textVide" style="display:none;">Aucune semaine enregistrée pour le moment.</p>
+      <ul class="liste-semaines" id="listeSemaines"></ul>
+    </main>
+  </div>
+
+  <script src="js/date-utils.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/historique.js"></script>
+</body>
+</html>
